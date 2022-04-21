@@ -1,17 +1,26 @@
 const Joi = require('joi');
 
-const name = Joi.string().min(3);
+const firstName = Joi.string().min(3);
+const secondName = Joi.string().min(3).allow(null);
+const firstSurname = Joi.string().min(3);
+const secondSurname = Joi.string().allow(null);
 const email = Joi.string().email();
 const password = Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/);
 
 const createUserSchema = Joi.object({
-  name: name.required(),
+  firstName: firstName.required(),
+  secondName: secondName,
+  firstSurname: firstSurname.required(),
+  secondSurname: secondSurname,
   email: email.required(),
   password: password.required(),
 });
 
 const updateUserSchema = Joi.object({
-  name: name,
+  firstName: firstName,
+  secondName: secondName,
+  firstSurname: firstSurname,
+  secondSurname: secondSurname,
   email: email,
   password: password,
 });

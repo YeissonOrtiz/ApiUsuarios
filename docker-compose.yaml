@@ -1,0 +1,22 @@
+services:
+    postgresql:
+        image: postgres
+        restart: always
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_DB: dbusers
+            POSTGRES_USER: yeisson
+            POSTGRES_PASSWORD: a123456
+        volumes:
+            - ./db:/var/lib/postgresql/data
+
+    pgadmin:
+        image: dpage/pgadmin4
+        ports:
+            - 5050:80
+        links:
+            - postgresql
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=yeisson@email.com
+            - PGADMIN_DEFAULT_PASSWORD=a123456

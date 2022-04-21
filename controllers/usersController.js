@@ -1,6 +1,8 @@
 const faker = require('faker');
 const boom = require('@hapi/boom');
 
+const { models } = require('../libs/sequelize');
+
 class UserController{
 
   constructor(){
@@ -13,7 +15,10 @@ class UserController{
     for(let i = 0; i < limit; i++){
       this.users.push({
         id: i+1,
-        name: faker.name.findName(),
+        firstName: faker.name.findName(),
+        secondName: faker.name.findName(),
+        lastName: faker.name.findName(),
+        secondSurname: faker.name.findName(),
         email: faker.internet.email(),
         password: faker.internet.password(),
         isActive: faker.datatype.boolean(),
@@ -22,45 +27,29 @@ class UserController{
   }
 
   async create(data){
-    const newUser = {
-      id: this.users.length,
-      ...data,
-      isActive: true,
-    };
-    this.users.push(newUser);
+    const newUser = await models.User.create(data);
+    return newUser;
   }
 
   async getAll(){
-    return this.users;
+    const users = await models.User.findAll();
+    return users;
   }
 
   async getById(id){
-    const user = this.users.find(user => user.id == id);
-    if (!user) {
-      return boom.notFound('User not found').message;
-    }
+    const user = await models.User.findByPk(id);
     return user;
   }
 
   async update(id, data){
-    const user = this.users.find(user => user.id == id);
-    if(!user){
-      return boom.notFound('User not found').message;
-    }
-    const index = this.users.indexOf(user);
-    this.users[index] = {
-      ...user,
-      ...data
-    };
-    return this.users[index];
+    const user = await this.getById(id);
+    const updated = user.update(data);
+    return updated;
   }
 
   async deleteById(id){
-    const user = this.users.find(user => user.id == id);
-    if(!user){
-      return boom.notFound('User not found').message;
-    }
-    user.isActive = false;
+    const user = await this.getById(id);
+    user.update({ isActive: false });
     return user;
   }
 }
