@@ -7,12 +7,13 @@ const setupModels = require('../db.models/index');
 const options = {
   dialect: 'postgres',
   logging: config.isProduction ? false : true,
-
 }
 
 if (config.isProduction) {
-  options.ssl = {
-    rejectUnauthorized: false
+  options.dialectOptions = {
+    ssl: {
+      rejectUnauthorized: false
+    }
   }
 }
 
