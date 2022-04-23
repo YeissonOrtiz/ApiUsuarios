@@ -6,7 +6,7 @@ const controller = new usersController();
 const validatorHandler = require('../middlewares/validatorHandler');
 const { createUserSchema, updateUserSchema, oneUserSchema } = require('../schemas/userSchema');
 
-router.post(
+router.get(
   '/login',
   async (req, res, next) => {
   try {
