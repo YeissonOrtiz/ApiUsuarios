@@ -32,7 +32,9 @@ class UserController{
   }
 
   async login($data){
-    const { email, password } = $data;
+    const password = $data.password;
+    const email = $data.email;
+
     const user = await models.User.findOne({
       where: {
         email,
