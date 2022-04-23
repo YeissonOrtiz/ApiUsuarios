@@ -2,6 +2,7 @@ const faker = require('faker');
 const boom = require('@hapi/boom');
 
 const { models } = require('../libs/sequelize');
+const res = require('express/lib/response');
 
 class UserController{
 
@@ -11,7 +12,7 @@ class UserController{
   }
 
   async getAll(){
-    const users = await models.User.findAll();
+    const users = await models.User.findAll({order: [['id', 'ASC']]});
     return users;
   }
 
@@ -31,6 +32,26 @@ class UserController{
     user.update({ isActive: false });
     return user;
   }
+
+  async login($data){
+    const { email, password } = $data;
+    const user = await models.User.findOne({
+      where: {
+        email,
+        password,
+      },
+    });
+
+    let message;
+
+    if (!user) {
+      message = false;
+    }else{
+      message = true;
+    }
+    return message;
+  }
+
 }
 
 module.exports = UserController;
