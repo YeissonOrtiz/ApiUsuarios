@@ -1,8 +1,6 @@
-const faker = require('faker');
-const boom = require('@hapi/boom');
+const bcrypt = require('bcrypt');
 
 const { models } = require('../libs/sequelize');
-const res = require('express/lib/response');
 
 class UserController{
 
@@ -42,14 +40,16 @@ class UserController{
       },
     });
 
-    let message;
-
-    if (!user) {
-      message = false;
-    }else{
-      message = true;
-    }
-    return message;
+    bcrypt.compare(password, user.password).then((result) => {
+      if (result) {
+        return {
+          message: true,
+        };
+      }
+      return {
+        message: false,
+      };
+    });
   }
 
 }
