@@ -57,8 +57,8 @@ router.post(
   '/login',
   async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const message =  await controller.login({ email, password });
+    const data = req.body;
+    const message =  await controller.login(data);
     res.status(200).json(message);
   } catch (error) {
     next(error);
