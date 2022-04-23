@@ -33,23 +33,11 @@ class UserController{
     return user;
   }
 
-  async login($data){
-    const { email, password } = $data;
-    const user = await models.User.findOne({
-      where: {
-        email,
-        password,
-      },
+  async login(){
+    const credentials = await models.User.findAll({
+      attributes: ['email', 'password']
     });
-
-    let message;
-
-    if (!user) {
-      message = false;
-    }else{
-      message = true;
-    }
-    return message;
+    return credentials;
   }
 
 }

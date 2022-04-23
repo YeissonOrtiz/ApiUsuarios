@@ -6,17 +6,15 @@ const controller = new usersController();
 const validatorHandler = require('../middlewares/validatorHandler');
 const { createUserSchema, updateUserSchema, oneUserSchema } = require('../schemas/userSchema');
 
-router.patch(
-  '/ingresar',
+router.get(
+  '/login',
   async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const message =  await controller.login({ email, password });
-    res.status(200).json(message);
+    const credentials = await controller.login();
+    res.status(200).json(credentials);
   } catch (error) {
     next(error);
   }
-
 });
 
 router.get(
