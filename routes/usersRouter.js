@@ -59,8 +59,8 @@ router.post(
   try {
     const email = req.body.email;
     const password = req.body.password;
-    const message =  await controller.login({email, password});
-    res.status(200).json(email, password);
+    const message =  await controller.login(email, password);
+    res.status(200).json(message);
   } catch (error) {
     next(error);
   }

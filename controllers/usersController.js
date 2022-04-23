@@ -31,27 +31,24 @@ class UserController{
     return user;
   }
 
-  async login({email, password}){
-    let myPassword = password;
-
+  async login(email, password){
     const user = await models.User.findOne({
       where: {
-        email,
-        password,
+        email
       },
     });
 
-    let message = '';
+    let message;
 
-    bcrypt.compare(password, user.password).then((result) => {
-      if (result) {
-        message = true;
-      }else{
-        message = false;
-      }
-    });
+    let result = bcrypt.compare(password, user.password);
 
-    return myPassword, message;
+    if (result) {
+      message = true;
+    } else {
+      message = false;
+    }
+
+    return result;
   }
 
 }
