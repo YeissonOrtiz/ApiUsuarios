@@ -45,10 +45,11 @@ class UserController{
         return {
           message: true,
         };
+      }else{
+        return {
+          message: false,
+        };
       }
-      return {
-        message: false,
-      };
     });
   }
 
