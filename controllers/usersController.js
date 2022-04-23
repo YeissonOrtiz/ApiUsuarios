@@ -5,27 +5,6 @@ const { models } = require('../libs/sequelize');
 
 class UserController{
 
-  constructor(){
-    this.users = [];
-    this.generate();
-  }
-
-  generate(){
-    const limit = 10;
-    for(let i = 0; i < limit; i++){
-      this.users.push({
-        id: i+1,
-        firstName: faker.name.findName(),
-        secondName: faker.name.findName(),
-        lastName: faker.name.findName(),
-        secondSurname: faker.name.findName(),
-        email: faker.internet.email(),
-        password: faker.internet.password(),
-        isActive: faker.datatype.boolean(),
-      });
-    }
-  }
-
   async create(data){
     const newUser = await models.User.create(data);
     return newUser;
