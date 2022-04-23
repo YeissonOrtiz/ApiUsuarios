@@ -31,9 +31,9 @@ class UserController{
     return user;
   }
 
-  async login($data){
-    const password = $data.password;
-    const email = $data.email;
+  async login(data){
+    const password = data.password;
+    const email = data.email;
 
     const user = await models.User.findOne({
       where: {
