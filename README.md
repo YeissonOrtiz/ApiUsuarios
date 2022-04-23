@@ -5,7 +5,7 @@ Frontend: https://github.com/YeissonOrtiz/FrontPruebaTecnica.git
 Para crear el backend de la app para la prueba tecnica use Node.js y basicamente cree
 un API que da respuesta a la solicitudes que se realizan desde el frontend de la app.
 
-Dentro de Node.js use librerias como boom, hapi, Joi, sequelize, cryptr.
+Dentro de Node.js use las librerias boom, hapi, Joi, sequelize, cryptr.
 
 Las dos primeras librerias mencionadas las utilice para el control de errores mediante middlewares.
 La libreria Joi la use para la validación de datos que intentan ingresar a mi base de datos.
