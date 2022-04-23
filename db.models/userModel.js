@@ -19,6 +19,7 @@ const UserModel = {
     type: DataTypes.STRING,
     field: 'second_name',
     allowNull: true,
+    allowEmpty: true
   },
 
   firstSurname: {
@@ -31,6 +32,7 @@ const UserModel = {
     type: DataTypes.STRING,
     field: 'second_surname',
     allowNull: true,
+    allowEmpty: true
   },
 
   email: {
