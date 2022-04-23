@@ -35,6 +35,11 @@ class UserController{
     const password = data.password;
     const email = data.email;
 
+    let message = {
+      password,
+      email,
+    };
+
     const user = await models.User.findOne({
       where: {
         email,
@@ -53,6 +58,8 @@ class UserController{
         };
       }
     });
+
+    return message;
   }
 
 }
