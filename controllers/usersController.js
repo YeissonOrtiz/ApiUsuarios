@@ -1,6 +1,7 @@
-const bcrypt = require('bcryptjs');
-
 const { models } = require('../libs/sequelize');
+
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotallySecretKey');
 
 class UserController{
 
@@ -40,7 +41,13 @@ class UserController{
 
     let message;
 
-    let result = bcrypt.compare(password, user.password);
+    let result;
+
+    if(cryptr.decrypt(user.password) == password){
+      result = true;
+    }else{
+      result = false;
+    };
 
     if (result) {
       message = true;

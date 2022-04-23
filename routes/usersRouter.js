@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const bcrypt = require('bcryptjs');
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotallySecretKey');
 
 const usersController = require('../controllers/usersController');
 const controller = new usersController();
@@ -28,6 +29,8 @@ router.get(
 
   try {
     const user = await controller.getById(req.params.id);
+    let password = cryptr.decrypt(user.password);
+    user.password = password;
     res.status(200).json(user);
   } catch (error) {
     next(error);
@@ -41,7 +44,7 @@ router.post(
   async (req, res, next) => {
   try {
     let password = req.body.password;
-    password = await bcrypt.hash(password, 10);
+    password = await cryptr.encrypt(password);
     req.body.password = password;
     const user = await controller.create(req.body);
     res.status(201).json(user);
@@ -72,7 +75,7 @@ router.patch(
   async (req, res, next) => {
   if (req.body.password) {
     let password = req.body.password;
-    password = await bcrypt.hash(password, 10);
+    password = await cryptr.encrypt(password);
     req.body.password = password;
   }
 
