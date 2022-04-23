@@ -31,11 +31,8 @@ class UserController{
     return user;
   }
 
-  async login(data){
-    const password = data.password;
-    const email = data.email;
-
-    let message = password;
+  async login({email, password}){
+    let myPassword = password;
 
     const user = await models.User.findOne({
       where: {
@@ -43,6 +40,8 @@ class UserController{
         password,
       },
     });
+
+    let message = '';
 
     bcrypt.compare(password, user.password).then((result) => {
       if (result) {
@@ -52,7 +51,7 @@ class UserController{
       }
     });
 
-    return message;
+    return myPassword, message;
   }
 
 }
