@@ -7,7 +7,7 @@ const validatorHandler = require('../middlewares/validatorHandler');
 const { createUserSchema, updateUserSchema, oneUserSchema } = require('../schemas/userSchema');
 
 router.post(
-  '/login',
+  '/ingresar',
   async (req, res, next) => {
   try {
     const { email, password } = req.body;
