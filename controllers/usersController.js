@@ -35,10 +35,7 @@ class UserController{
     const password = data.password;
     const email = data.email;
 
-    let message = {
-      password,
-      email,
-    };
+    let message = password;
 
     const user = await models.User.findOne({
       where: {
@@ -49,13 +46,9 @@ class UserController{
 
     bcrypt.compare(password, user.password).then((result) => {
       if (result) {
-        return {
-          message: true,
-        };
+        message = true;
       }else{
-        return {
-          message: false,
-        };
+        message = false;
       }
     });
 
