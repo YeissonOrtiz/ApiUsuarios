@@ -2,8 +2,8 @@
 Developed by Yeisson Ortiz
 Frontend: https://github.com/YeissonOrtiz/FrontPruebaTecnica.git
 
-Para crear el backend de la app para la prueba tecnica use Node.js y basicamente cree
-un API que da respuesta a la solicitudes que se realizan desde el frontend de la app.
+Este repositorio contiene un API que almacena, muestra, edita y desactiva usuarios. 
+El API está desarrollado en Node.Js y la BD está alojada en un servidor de postgresql.
 
 Dentro de Node.js use las librerias boom, hapi, Joi, sequelize, cryptr.
 
